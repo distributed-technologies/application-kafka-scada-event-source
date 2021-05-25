@@ -1,0 +1,6 @@
+apiVersion: v2
+name: kafka-scada-json-producer
+description: A Helm chart for an application that consumes a parquet file form a kafka topic and produces json
+type: application
+version: v0.1.0
+appVersion: "1.0.0"
