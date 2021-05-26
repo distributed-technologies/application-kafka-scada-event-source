@@ -15,9 +15,7 @@ spec:
     spec:
       containers:
       - image: "{{ .Values.image }}:{{ .Values.imageTag }}"
-        command: 
-        - "python"
-        - "app/scada_parquet_transformer.py"
+        args: 
         - "{{ .Values.clusterName }}-kafka-bootstrap:9093"
         - {{ .Values.topics.consumer.name }}
         - {{ .Values.topics.producer.name }}

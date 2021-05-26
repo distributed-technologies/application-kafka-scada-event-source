@@ -19,8 +19,7 @@ consumer = KafkaConsumer(
 
 producer = KafkaProducer(bootstrap_servers=[broker],
                          value_serializer=lambda x: 
-                         dumps(x).encode('utf-8'),
-                         client_id="scada-json-producer")
+                         dumps(x).encode('utf-8'))
 print(f"Contacted broker: {broker}")
 print(f"Started consuming from topic: {consume_topic}")
 print(f"Started producing on topic: {produce_topic}")
@@ -29,7 +28,7 @@ for message in consumer:
     reader = pa.BufferReader(message.value)
     df = pq.read_table(reader).to_pandas() 
     lines_in_file = len(df)
-    print(f"Read scada file with {lines_in_file} lines from topic: {consume_topic}" )
+    print(f"Read parquet file with {lines_in_file} lines from topic: {consume_topic}" )
     for index,row in df.iterrows():
           # We dump the row to json and load to get the correct time format
           payload = row.to_json()

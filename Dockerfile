@@ -8,4 +8,4 @@ COPY scripts/scada_parquet_transformer.py /app/
 
 ENV PYTHONUNBUFFERED=1
 
-ENTRYPOINT ["sh"] 
+ENTRYPOINT ["python", "/app/scada_parquet_transformer.py"]

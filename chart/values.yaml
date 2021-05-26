@@ -1,7 +1,7 @@
 clusterName: my-cluster
 imagePullPolicy: Always
 image: jcrmindster/kafka-scada-json-producer
-imageTag: 0.0.10
+imageTag: 0.0.13
 topics:
   consumer:
     name: scada
