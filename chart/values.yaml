@@ -1,0 +1,13 @@
+clusterName: my-cluster
+imagePullPolicy: Always
+image: jcrmindster/kafka-scada-json-producer
+imageTag: 0.0.13
+topics:
+  consumer:
+    name: scada
+    partitions: 1
+    replicas: 1
+  producer:
+    name: scada-json
+    partitions: 1
+    replicas: 1

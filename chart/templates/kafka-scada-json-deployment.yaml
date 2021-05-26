@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kafka-scada-json-producer
+  name: kafka-scada-json-producer
+spec:
+  selector:
+    matchLabels:
+      app: kafka-scada-json-producer
+  template:
+    metadata:
+      labels:
+        app: kafka-scada-json-producer
+    spec:
+      containers:
+      - image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+        args: 
+        - "{{ .Values.clusterName }}-kafka-bootstrap:9093"
+        - {{ .Values.topics.consumer.name }}
+        - {{ .Values.topics.producer.name }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        name: kafka-scada-json-producer
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
