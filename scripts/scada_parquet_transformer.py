@@ -27,8 +27,7 @@ print(f"Started producing on topic: {produce_topic}")
 for message in consumer:
     # Read the kafka record as raw bytes and transform to a pandas dataframe 
     reader = pa.BufferReader(message.value)
-    table = pq.read_table(reader)
-    df = table.to_pandas()
+    df = pq.read_table(reader).to_pandas() 
     lines_in_file = len(df)
     print(f"Read scada file with {lines_in_file} lines from topic: {consume_topic}" )
     for index,row in df.iterrows():
