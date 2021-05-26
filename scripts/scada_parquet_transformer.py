@@ -21,12 +21,16 @@ producer = KafkaProducer(bootstrap_servers=[broker],
                          value_serializer=lambda x: 
                          dumps(x).encode('utf-8'),
                          client_id="scada-json-producer")
-
+print(f"Contacted broker: {broker}")
+print(f"Started consuming from topic: {consume_topic}")
+print(f"Started producing on topic: {produce_topic}")
 for message in consumer:
     # Read the kafka record as raw bytes and transform to a pandas dataframe 
     reader = pa.BufferReader(message.value)
     table = pq.read_table(reader)
     df = table.to_pandas()
+    lines_in_file = len(df)
+    print(f"Read scada file with {lines_in_file} lines from topic: {consume_topic}" )
     for index,row in df.iterrows():
           # We dump the row to json and load to get the correct time format
           payload = row.to_json()
@@ -34,3 +38,4 @@ for message in consumer:
           producer.send(topic=produce_topic, value=payload, timestamp_ms=timestamp)
           # We sleep 1 second to simulate scada event stream
           sleep(1)
+    print(f"Finished writing {lines_in_file} events to topic: {produce_topic}")

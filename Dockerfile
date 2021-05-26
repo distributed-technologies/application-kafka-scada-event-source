@@ -6,4 +6,6 @@ RUN pip install pandas
 
 COPY scripts/scada_parquet_transformer.py /app/
 
+ENV PYTHONUNBUFFERED=1
+
 ENTRYPOINT ["sh"] 
