@@ -32,7 +32,7 @@ for message in consumer:
     for index,row in df.iterrows():
           # We dump the row to json and load to get the correct time format
           payload_string = row.to_json()
-          payload = json.loads(payload)
+          payload = json.loads(payload_string)
           timestamp = ['timestamp']
           producer.send(topic=produce_topic, value=payload, timestamp_ms=timestamp)
           # We sleep 1 second to simulate scada event stream
