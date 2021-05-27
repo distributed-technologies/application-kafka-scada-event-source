@@ -15,7 +15,9 @@ produce_topic=str(sys.argv[3])
 consumer = KafkaConsumer(
      consume_topic,
      bootstrap_servers=[broker],
-     auto_offset_reset='earliest')
+     auto_offset_reset='earliest',
+     value_serializer=lambda x: 
+            dumps(x).encode('utf-8'))
 
 producer = KafkaProducer(bootstrap_servers=[broker])
 print(f"Contacted broker: {broker}")
@@ -29,8 +31,9 @@ for message in consumer:
     print(f"Read parquet file with {lines_in_file} lines from topic: {consume_topic}" )
     for index,row in df.iterrows():
           # We dump the row to json and load to get the correct time format
-          payload = row.to_json()
-          timestamp = json.loads(payload)['timestamp']
+          payload_string = row.to_json()
+          payload = json.loads(payload)
+          timestamp = payload['timestamp']
           producer.send(topic=produce_topic, value=payload, timestamp_ms=timestamp)
           # We sleep 1 second to simulate scada event stream
           sleep(1)
