@@ -4,7 +4,7 @@ image: jcrmindster/kafka-scada-json-producer
 imageTag: 0.0.13
 kafkaBroker:
   serviceName: my-cluster-kafka-bootstrap
-  serviceNamespace: dlr
+  serviceNamespace: kafka
   servicePort: 9093
 topics:
   consumer:
