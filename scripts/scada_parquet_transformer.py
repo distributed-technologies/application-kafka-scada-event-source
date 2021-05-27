@@ -17,9 +17,7 @@ consumer = KafkaConsumer(
      bootstrap_servers=[broker],
      auto_offset_reset='earliest')
 
-producer = KafkaProducer(bootstrap_servers=[broker],
-                         value_serializer=lambda x: 
-                         dumps(x).encode('utf-8'))
+producer = KafkaProducer(bootstrap_servers=[broker])
 print(f"Contacted broker: {broker}")
 print(f"Started consuming from topic: {consume_topic}")
 print(f"Started producing on topic: {produce_topic}")
