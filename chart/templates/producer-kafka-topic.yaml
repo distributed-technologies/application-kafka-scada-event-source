@@ -4,6 +4,7 @@ metadata:
   name: {{ .Values.topics.producer.name }}
   labels:
     strimzi.io/cluster: {{ .Values.clusterName }}
+  namespace: {{   .Values.kafkaBroker.namespace }}
 spec: 
   topicName: {{ .Values.topics.producer.name }}
   partitions: {{ .Values.topics.producer.partitions }}

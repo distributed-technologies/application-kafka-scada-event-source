@@ -2,9 +2,13 @@ clusterName: my-cluster
 imagePullPolicy: Always
 image: jcrmindster/kafka-scada-json-producer
 imageTag: 0.0.13
+# Configuration of the connection to the kafka broker
 kafkaBroker:
+  # The service name that exposes the kafka broker 
   serviceName: my-cluster-kafka-bootstrap
-  serviceNamespace: kafka
+  # The namespace where the kafka broker is installed
+  namespace: kafka
+  # The port where the service listens for incomming connections
   servicePort: 9093
 topics:
   consumer:

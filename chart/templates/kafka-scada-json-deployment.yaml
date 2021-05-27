@@ -16,7 +16,7 @@ spec:
       containers:
       - image: "{{ .Values.image }}:{{ .Values.imageTag }}"
         args: 
-        - "{{ .Values.kafkaBroker.serviceName }}.{{ .Values.kafkaBroker.serviceNamespace }}:{{ .Values.kafkaBroker.servicePort }}"
+        - "{{ .Values.kafkaBroker.serviceName }}.{{ .Values.kafkaBroker.namespace }}:{{ .Values.kafkaBroker.servicePort }}"
         - {{ .Values.topics.consumer.name }}
         - {{ .Values.topics.producer.name }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
