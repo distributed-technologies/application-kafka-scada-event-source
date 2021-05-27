@@ -15,11 +15,11 @@ produce_topic=str(sys.argv[3])
 consumer = KafkaConsumer(
      consume_topic,
      bootstrap_servers=[broker],
-     auto_offset_reset='earliest',
-     value_serializer=lambda x: 
-            dumps(x).encode('utf-8'))
+     auto_offset_reset='earliest')
 
-producer = KafkaProducer(bootstrap_servers=[broker])
+producer = KafkaProducer(bootstrap_servers=[broker],
+            value_serializer=lambda x: 
+            dumps(x).encode('utf-8'))
 print(f"Contacted broker: {broker}")
 print(f"Started consuming from topic: {consume_topic}")
 print(f"Started producing on topic: {produce_topic}")
@@ -33,7 +33,7 @@ for message in consumer:
           # We dump the row to json and load to get the correct time format
           payload_string = row.to_json()
           payload = json.loads(payload)
-          timestamp = payload['timestamp']
+          timestamp = ['timestamp']
           producer.send(topic=produce_topic, value=payload, timestamp_ms=timestamp)
           # We sleep 1 second to simulate scada event stream
           sleep(1)
