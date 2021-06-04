@@ -19,7 +19,7 @@ spec:
         - "{{ .Values.kafkaBroker.serviceName }}.{{ .Values.kafkaBroker.namespace }}:{{ .Values.kafkaBroker.servicePort }}"
         - {{ .Values.topics.consumer.name }}
         - {{ .Values.topics.producer.name }}
-        - {{ .Values.topics.producer.interval_sec }}
+        - "{{ .Values.topics.producer.interval_sec }}"
         - {{ .Values.topics.consumer.group }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         name: kafka-scada-json-producer
