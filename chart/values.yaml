@@ -1,7 +1,7 @@
 clusterName: my-cluster
 imagePullPolicy: Always
 image: jcrmindster/kafka-scada-json-producer
-imageTag: 0.0.18
+imageTag: 0.0.19
 # Configuration of the connection to the kafka broker
 kafkaBroker:
   # The service name that exposes the kafka broker 
@@ -20,3 +20,4 @@ topics:
     name: scada-json
     partitions: 3
     replicas: 1
+    interval_sec: 5

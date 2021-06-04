@@ -11,10 +11,11 @@ import json
 broker=str(sys.argv[1])
 consume_topic=str(sys.argv[2])
 produce_topic=str(sys.argv[3])
+consume_interval=int(sys.argv[4])
 consumer_group=None
 
 if len(sys.argv)>3:
-      consumer_group=str(sys.argv[4])
+      consumer_group=str(sys.argv[5])
 
 consumer = KafkaConsumer(
      consume_topic,
@@ -38,8 +39,7 @@ for message in consumer:
           # We dump the row to json and load to get the correct time format
           payload_string = row.to_json()
           payload = json.loads(payload_string)
-          timestamp = payload['timestamp']
-          producer.send(topic=produce_topic, value=payload, timestamp_ms=timestamp)
+          producer.send(topic=produce_topic, value=payload)
           # We sleep 1 second to simulate scada event stream
-          sleep(1)
+          sleep(consume_interval)
     print(f"Finished writing {lines_in_file} events to topic: {produce_topic}")
