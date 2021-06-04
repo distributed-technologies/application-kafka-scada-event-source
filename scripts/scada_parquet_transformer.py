@@ -11,11 +11,16 @@ import json
 broker=str(sys.argv[1])
 consume_topic=str(sys.argv[2])
 produce_topic=str(sys.argv[3])
+consumer_group=None
+
+if len(sys.argv)>3:
+      consumer_group=str(sys.argv[4])
 
 consumer = KafkaConsumer(
      consume_topic,
      bootstrap_servers=[broker],
-     auto_offset_reset='earliest')
+     auto_offset_reset='earliest',
+     group_id=consumer_group)
 
 producer = KafkaProducer(bootstrap_servers=[broker],
             value_serializer=lambda x: 
