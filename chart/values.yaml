@@ -15,6 +15,7 @@ topics:
     name: scada
     partitions: 1
     replicas: 1
+    group: scada-json-producer 
   producer:
     name: scada-json
     partitions: 1
