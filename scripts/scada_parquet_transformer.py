@@ -46,8 +46,9 @@ if offset_line_consumer.end_offsets([partition]) == 0:
 
 print("Fetching line number")
 # Fetch the latest message in the topic
-consume_line = next(offset_line_consumer)
-line_number = consume_line.value
+for message in offset_line_consumer:
+      line_number = message.value
+      break
 
 
 print(f"Got line number offset {line_number}")
