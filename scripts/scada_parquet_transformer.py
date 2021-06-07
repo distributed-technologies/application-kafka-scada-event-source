@@ -36,7 +36,7 @@ print(f"Started producing on topic: {produce_topic}")
 
 # Manually assign partition to consumer.
 
-offset_line_consumer.assign(TopicPartition(topic_line_offset,0))
+offset_line_consumer.assign([TopicPartition(topic_line_offset,0)])
 
 partitions_iterator = iter(offset_line_consumer.assignment())
 partition = next(partitions_iterator)
