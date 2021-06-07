@@ -54,7 +54,7 @@ print("Fetching line number")
 for message in offset_line_consumer:
       line_number = message.value
       offset_line_consumer.commit()
-      if end_offset = message.offset:
+      if end_offset == message.offset:
             break
 
 
