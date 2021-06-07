@@ -36,7 +36,7 @@ print(f"Contacted broker: {broker}")
 print(f"Started consuming from topic: {consume_topic}")
 print(f"Started producing on topic: {produce_topic}")
 
-
+offset_line_consumer.subscribe(topics=[topic_line_offset])
 
 partitions_iterator = iter(offset_line_consumer.assignment())
 partition = next(partitions_iterator,None)
