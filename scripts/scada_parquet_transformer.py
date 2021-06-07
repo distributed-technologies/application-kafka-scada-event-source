@@ -1,7 +1,6 @@
 from time import sleep
 from json import dumps,loads
-from kafka import KafkaProducer
-from kafka import KafkaConsumer
+from kafka import KafkaProducer,KafkaConsumer,TopicPartition 
 import sys
 import datetime
 import pyarrow as pa
@@ -36,8 +35,8 @@ print(f"Started consuming from topic: {consume_topic}")
 print(f"Started producing on topic: {produce_topic}")
 
 # Manually assign partition to consumer.
-partitions_for_topic = offset_line_consumer.partitions_for_topic(topic_line_offset)
-offset_line_consumer.assign(partitions_for_topic)
+
+offset_line_consumer.assign(TopicPartition(topic_line_offset,0))
 
 partitions_iterator = iter(offset_line_consumer.assignment())
 partition = next(partitions_iterator)
