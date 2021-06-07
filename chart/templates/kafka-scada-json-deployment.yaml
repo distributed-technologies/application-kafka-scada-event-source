@@ -15,6 +15,7 @@ spec:
     spec:
       containers:
       - image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         args: 
         - "{{ .Values.kafkaBroker.serviceName }}.{{ .Values.kafkaBroker.namespace }}:{{ .Values.kafkaBroker.servicePort }}"
         - {{ .Values.topics.consumer.name }}
@@ -22,7 +23,6 @@ spec:
         - "{{ .Values.topics.producer.interval_sec }}"
         - {{  .Values.topics.lineOffset.name }}
         - {{ .Values.topics.consumer.group }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
         name: kafka-scada-json-producer
         resources:
           limits:
