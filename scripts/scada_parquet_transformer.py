@@ -40,7 +40,10 @@ offset_line_consumer.assign([TopicPartition(topic_line_offset,0)])
 
 partitions_iterator = iter(offset_line_consumer.assignment())
 partition = next(partitions_iterator)
-print(partition)
+
+end = offset_line_consumer.seek_to_end()
+
+print(end)
 
 # Fetch the latest message in the topic
 for message in offset_line_consumer:
