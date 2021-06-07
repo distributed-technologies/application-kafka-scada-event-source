@@ -20,6 +20,7 @@ spec:
         - {{ .Values.topics.consumer.name }}
         - {{ .Values.topics.producer.name }}
         - "{{ .Values.topics.producer.interval_sec }}"
+        - {{  .Values.topics.lineOffset.name }}
         - {{ .Values.topics.consumer.group }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         name: kafka-scada-json-producer

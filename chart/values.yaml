@@ -21,3 +21,8 @@ topics:
     partitions: 1
     replicas: 3
     interval_sec: 5
+  lineOffset:
+    name: scada-file-line-offset
+    partitions: 1
+    replicas: 3
+
