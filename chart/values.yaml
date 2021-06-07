@@ -1,7 +1,7 @@
 clusterName: my-cluster
 imagePullPolicy: Always
 image: harbor.sc.garagen/jcrmindster/kafka-scada-json-producer
-imageTag: 0.0.44
+imageTag: 0.0.45
 # Configuration of the connection to the kafka broker
 kafkaBroker:
   # The service name that exposes the kafka broker 
