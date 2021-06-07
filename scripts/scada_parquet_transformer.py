@@ -73,7 +73,7 @@ for message in consumer:
           payload = json.loads(payload_string)
           producer.send(topic=produce_topic, value=payload)
           producer.send(topic=topic_line_offset,value=index)
-          offset_line_consumer.commit(offsets=index)
+          offset_line_consumer.commit(offsets=[index])
           # We sleep 1 second to simulate scada event stream
           sleep(consume_interval)
     print(f"Finished writing {lines_in_file} events to topic: {produce_topic}")
