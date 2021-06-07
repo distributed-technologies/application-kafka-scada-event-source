@@ -24,7 +24,7 @@ consumer = KafkaConsumer(
      group_id=consumer_group)
 
 offset_line_consumer = KafkaConsumer(
-     topic_line_offset
+     topic_line_offset,
      bootstrap_servers=[broker],
      group_id=consumer_group)
 
@@ -37,8 +37,8 @@ print(f"Started consuming from topic: {consume_topic}")
 print(f"Started producing on topic: {produce_topic}")
 
 # Manually assign partition to consumer.
-partition = TopicPartition(topic_line_offset,0)
-offset_line_consumer.assign([partition])
+# partition = TopicPartition(topic_line_offset,0)
+# offset_line_consumer.assign([partition])
 
 if offset_line_consumer.end_offsets() == 0:
       print("Nothing in topic setting offset to 0")
