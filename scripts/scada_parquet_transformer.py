@@ -67,7 +67,7 @@ for message in consumer:
     print(f"Read parquet file with {lines_in_file} lines from topic: {consume_topic}" )
     print(f"Producing from line: {line_number}")
     for index,row in df.iterrows():
-          if index < (line_number + 1) :
+          if index < (line_number + 1):
                 continue
 
           # We dump the row to json and load to get the correct time format
@@ -75,7 +75,10 @@ for message in consumer:
           payload = json.loads(payload_string)
           producer.send(topic=produce_topic, value=payload)
           producer.send(topic=topic_line_offset,value=index)
-          offset_line_consumer.commit()
+
+          # Commit the offset when we now a nex message is produced. Do only first time to avoid timeouts.  
+          if index < (line_number + 1)
+            offset_line_consumer.commit()
           # We sleep 1 second to simulate scada event stream
           sleep(consume_interval)
     print(f"Finished writing {lines_in_file} events to topic: {produce_topic}")
