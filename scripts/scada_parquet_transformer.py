@@ -26,7 +26,7 @@ consumer = KafkaConsumer(
 offset_line_consumer = KafkaConsumer(
      topic_line_offset,
      bootstrap_servers=[broker],
-     group_id=consumer_group)
+     group_id="consumer_group")
 
 producer = KafkaProducer(bootstrap_servers=[broker],
             value_serializer=lambda x: 
