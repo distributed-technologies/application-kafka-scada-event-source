@@ -27,7 +27,8 @@ offset_line_consumer = KafkaConsumer(
      topic_line_offset,
      bootstrap_servers=[broker],
      auto_offset_reset='earliest',
-     value_deserializer=lambda x: loads(x.decode('utf-8')))
+     value_deserializer=lambda x: loads(x.decode('utf-8')),
+     group_id=consumer_group)
 
 producer = KafkaProducer(bootstrap_servers=[broker],
             value_serializer=lambda x: 
@@ -42,7 +43,7 @@ partition = TopicPartition(topic_line_offset,0)
 # offset_line_consumer.assign([partition])
 
 end_offset =  offset_line_consumer.end_offsets([partition])
-if end_offset== 0:
+if end_offset[partition] == 0:
       print("Nothing in topic setting offset to 0")
       producer.send(topic=topic_line_offset,value=0,partition=0)
 else:
