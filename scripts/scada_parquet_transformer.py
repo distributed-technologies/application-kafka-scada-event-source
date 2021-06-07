@@ -43,13 +43,11 @@ partition = next(partitions_iterator)
 
 end = offset_line_consumer.seek_to_end()
 
-print(end)
+if end == None:
+      producer.send(topic=topic_line_offset,value=0)
 
 # Fetch the latest message in the topic
-for message in offset_line_consumer:
-      line_number = message.value
-      break
-
+line_number = next(offset_line_consumer)
 
 for message in consumer:
     # Read the kafka record as raw bytes and transform to a pandas dataframe 
