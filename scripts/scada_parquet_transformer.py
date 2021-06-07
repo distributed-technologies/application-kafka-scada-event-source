@@ -49,13 +49,13 @@ if end_offset == 0:
 else:
       print(f"End offset: {end_offset}")
 
-offset_line_consumer.commit(offsets=[end_offset])
-
 print("Fetching line number")
 # Fetch the latest message in the topic
 for message in offset_line_consumer:
       line_number = message.value
-      break
+      offset_line_consumer.commit()
+      if end_offset = message.offset:
+            break
 
 
 print(f"Got line number offset {line_number}")
