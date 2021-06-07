@@ -42,12 +42,14 @@ print(f"Started producing on topic: {produce_topic}")
 partition = TopicPartition(topic_line_offset,0)
 # offset_line_consumer.assign([partition])
 
-end_offset =  offset_line_consumer.end_offsets([partition])
-if end_offset[partition] == 0:
+end_offset =  offset_line_consumer.end_offsets([partition])[partition]
+if end_offset == 0:
       print("Nothing in topic setting offset to 0")
       producer.send(topic=topic_line_offset,value=0,partition=0)
 else:
       print(f"End offset: {end_offset}")
+
+offset_line_consumer.commit(offsets=[end_offset])
 
 print("Fetching line number")
 # Fetch the latest message in the topic
@@ -73,7 +75,6 @@ for message in consumer:
           payload = json.loads(payload_string)
           producer.send(topic=produce_topic, value=payload)
           producer.send(topic=topic_line_offset,value=index)
-          offset_line_consumer.commit(offsets=[index])
           # We sleep 1 second to simulate scada event stream
           sleep(consume_interval)
     print(f"Finished writing {lines_in_file} events to topic: {produce_topic}")
