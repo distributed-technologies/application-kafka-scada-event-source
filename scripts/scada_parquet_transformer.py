@@ -26,8 +26,9 @@ consumer = KafkaConsumer(
 offset_line_consumer = KafkaConsumer(
      topic_line_offset,
      bootstrap_servers=[broker],
-     auto_offset_reset='latest',
-     value_deserializer=lambda x: loads(x.decode('utf-8')))
+     auto_offset_reset='earliest',
+     value_deserializer=lambda x: loads(x.decode('utf-8')),
+     group_id="consumer-offset")
 
 producer = KafkaProducer(bootstrap_servers=[broker],
             value_serializer=lambda x: 
