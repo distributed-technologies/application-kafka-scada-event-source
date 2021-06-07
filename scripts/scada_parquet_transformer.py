@@ -54,7 +54,7 @@ print("Fetching line number")
 for message in offset_line_consumer:
       line_number = message.value
       print(f"got: {line_number}")
-      if end_offset == ( message.offset + 1 ):
+      if end_offset == ( message.offset + 2 ):
             break
 offset_line_consumer.commit()
 
@@ -67,7 +67,7 @@ for message in consumer:
     print(f"Read parquet file with {lines_in_file} lines from topic: {consume_topic}" )
     print(f"Producing from line: {line_number}")
     for index,row in df.iterrows():
-          if index < line_number:
+          if index < (line_number + 1) :
                 break
 
           # We dump the row to json and load to get the correct time format
@@ -75,6 +75,7 @@ for message in consumer:
           payload = json.loads(payload_string)
           producer.send(topic=produce_topic, value=payload)
           producer.send(topic=topic_line_offset,value=index)
+          
           # We sleep 1 second to simulate scada event stream
           sleep(consume_interval)
     print(f"Finished writing {lines_in_file} events to topic: {produce_topic}")
