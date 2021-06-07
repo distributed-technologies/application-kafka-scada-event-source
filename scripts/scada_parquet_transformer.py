@@ -56,7 +56,7 @@ for message in offset_line_consumer:
       print(f"got: {line_number}")
       if end_offset <= ( message.offset + 2 ):
             break
-offset_line_consumer.commit()
+
 
 print(f"Got line number offset {line_number}")
 for message in consumer:
@@ -75,7 +75,7 @@ for message in consumer:
           payload = json.loads(payload_string)
           producer.send(topic=produce_topic, value=payload)
           producer.send(topic=topic_line_offset,value=index)
-          
+          offset_line_consumer.commit()
           # We sleep 1 second to simulate scada event stream
           sleep(consume_interval)
     print(f"Finished writing {lines_in_file} events to topic: {produce_topic}")
