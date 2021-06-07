@@ -68,7 +68,7 @@ for message in consumer:
     print(f"Producing from line: {line_number}")
     for index,row in df.iterrows():
           if index < (line_number + 1) :
-                break
+                continue
 
           # We dump the row to json and load to get the correct time format
           payload_string = row.to_json()
