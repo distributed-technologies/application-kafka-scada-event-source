@@ -40,7 +40,7 @@ print(f"Started producing on topic: {produce_topic}")
 
 partitions_iterator = iter(offset_line_consumer.assignment())
 partition = next(partitions_iterator,None)
-print(partitions_iterator)
+print(partition)
 
 # Fetch the latest message in the topic
 for message in offset_line_consumer:
