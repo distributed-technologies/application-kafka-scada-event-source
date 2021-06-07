@@ -26,9 +26,8 @@ consumer = KafkaConsumer(
 offset_line_consumer = KafkaConsumer(
      topic_line_offset,
      bootstrap_servers=[broker],
-     auto_offset_reset='earliest',
-     value_deserializer=lambda x: loads(x.decode('utf-8')),
-     group_id="line_offset")
+     auto_offset_reset='latest',
+     value_deserializer=lambda x: loads(x.decode('utf-8')))
 
 producer = KafkaProducer(bootstrap_servers=[broker],
             value_serializer=lambda x: 
@@ -53,10 +52,10 @@ print("Fetching line number")
 # Fetch the latest message in the topic
 for message in offset_line_consumer:
       line_number = message.value
-      offset_line_consumer.commit()
+      print(f"got: {line_number}")
       if end_offset == ( message.offset + 1 ):
             break
-
+offset_line_consumer.commit()
 
 print(f"Got line number offset {line_number}")
 for message in consumer:
