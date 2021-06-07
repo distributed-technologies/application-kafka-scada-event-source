@@ -25,11 +25,12 @@ consumer = KafkaConsumer(
 
 offset_line_consumer = KafkaConsumer(
      bootstrap_servers=[broker],
-     group_id=consumer_group)
+     group_id=consumer_group )
 
 producer = KafkaProducer(bootstrap_servers=[broker],
             value_serializer=lambda x: 
             dumps(x).encode('utf-8'))
+
 print(f"Contacted broker: {broker}")
 print(f"Started consuming from topic: {consume_topic}")
 print(f"Started producing on topic: {produce_topic}")
@@ -38,12 +39,15 @@ print(f"Started producing on topic: {produce_topic}")
 partition = TopicPartition(topic_line_offset,0)
 offset_line_consumer.assign([partition])
 
-# Fetch the latest message in the topic
-line_number = next(offset_line_consumer).value
-
 if offset_line_consumer.seek_to_end() == None:
       print("Nothing in topic setting offset to 0")
       producer.send(topic=topic_line_offset,value=0,partition=0)
+
+print("Fetching line number")
+# Fetch the latest message in the topic
+consume_line = next(offset_line_consumer)
+line_number = consume_line.value
+
 
 print(f"Got line number offset {line_number}")
 for message in consumer:
