@@ -77,7 +77,7 @@ for message in consumer:
           producer.send(topic=topic_line_offset,value=index)
 
           # Commit the offset when we now a nex message is produced. Do only first time to avoid timeouts.  
-          if index < (line_number + 1)
+          if index < (line_number + 1):
             offset_line_consumer.commit()
           # We sleep 1 second to simulate scada event stream
           sleep(consume_interval)
