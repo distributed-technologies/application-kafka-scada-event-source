@@ -37,10 +37,10 @@ print(f"Started consuming from topic: {consume_topic}")
 print(f"Started producing on topic: {produce_topic}")
 
 # Manually assign partition to consumer.
-# partition = TopicPartition(topic_line_offset,0)
+partition = TopicPartition(topic_line_offset,0)
 # offset_line_consumer.assign([partition])
 
-if offset_line_consumer.end_offsets() == 0:
+if offset_line_consumer.end_offsets([partition]) == 0:
       print("Nothing in topic setting offset to 0")
       producer.send(topic=topic_line_offset,value=0,partition=0)
 
