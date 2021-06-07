@@ -41,7 +41,7 @@ if offset_line_consumer.seek_to_end() == None:
       print("Nothing in topic setting offset to 0")
       producer.send(topic=topic_line_offset,value=0,partition=0)
 # Fetch the latest message in the topic
-line_number = next(offset_line_consumer)
+line_number = next(offset_line_consumer).value
 
 print(f"Got line number offset {line_number}")
 for message in consumer:
