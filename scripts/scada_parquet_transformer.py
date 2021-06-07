@@ -41,9 +41,12 @@ print(f"Started producing on topic: {produce_topic}")
 partition = TopicPartition(topic_line_offset,0)
 # offset_line_consumer.assign([partition])
 
-if offset_line_consumer.end_offsets([partition]) == 0:
+end_offset =  offset_line_consumer.end_offsets([partition])
+if end_offset== 0:
       print("Nothing in topic setting offset to 0")
       producer.send(topic=topic_line_offset,value=0,partition=0)
+else:
+      print(f"End offset: {end_offset}")
 
 print("Fetching line number")
 # Fetch the latest message in the topic
