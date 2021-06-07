@@ -35,20 +35,15 @@ print(f"Started consuming from topic: {consume_topic}")
 print(f"Started producing on topic: {produce_topic}")
 
 # Manually assign partition to consumer.
-
-offset_line_consumer.assign([TopicPartition(topic_line_offset,0)])
-
-partitions_iterator = iter(offset_line_consumer.assignment())
-partition = next(partitions_iterator)
-
-end = offset_line_consumer.seek_to_end()
-
-if end == None:
-      producer.send(topic=topic_line_offset,value=0)
-
+partition = [TopicPartition(topic_line_offset,0)]
+offset_line_consumer.assign(partition)
+if offset_line_consumer.seek_to_end() == None:
+      print("Nothing in topic setting offset to 0")
+      producer.send(topic=topic_line_offset,value=0,partition=partition)
 # Fetch the latest message in the topic
 line_number = next(offset_line_consumer)
 
+print(f"Got line number offset {line_number}")
 for message in consumer:
     # Read the kafka record as raw bytes and transform to a pandas dataframe 
     reader = pa.BufferReader(message.value)
