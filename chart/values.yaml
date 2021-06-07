@@ -18,6 +18,6 @@ topics:
     group: scada-json-producer 
   producer:
     name: scada-json
-    partitions: 3
-    replicas: 1
+    partitions: 1
+    replicas: 3
     interval_sec: 5
