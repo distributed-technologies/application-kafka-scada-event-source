@@ -16,7 +16,7 @@ spec:
     spec:
       {{- with .Values.affinity }}
       affinity: 
-      {{ toYaml . | indent 8}}
+{{ toYaml . | indent 8}}
       {{- end }}
       containers:
       - image: "{{ .Values.image }}:{{ .Values.imageTag }}"
