@@ -2,6 +2,11 @@ clusterName: my-cluster
 imagePullPolicy: Always
 image: harbor.sc.garagen/jcrmindster/kafka-scada-json-producer
 imageTag: 0.0.62
+
+# Affinity for the pod assignment
+# ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+affinity: {}
+
 # Configuration of the connection to the kafka broker
 kafkaBroker:
   # The service name that exposes the kafka broker 

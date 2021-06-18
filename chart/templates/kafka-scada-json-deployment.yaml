@@ -5,6 +5,10 @@ metadata:
     app: kafka-scada-json-producer
   name: kafka-scada-json-producer
 spec:
+  {{- with .Values.affinity }}
+  affinity: 
+  {{ toYaml . | indent 4}}
+  {{- end }}
   selector:
     matchLabels:
       app: kafka-scada-json-producer
@@ -12,6 +16,7 @@ spec:
     metadata:
       labels:
         app: kafka-scada-json-producer
+        application: grafana-kafka-scada
     spec:
       containers:
       - image: "{{ .Values.image }}:{{ .Values.imageTag }}"
